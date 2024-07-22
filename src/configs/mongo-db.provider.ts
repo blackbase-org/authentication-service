@@ -6,7 +6,7 @@ export const mongoDbProvider: MongooseModuleAsyncOptions = {
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: async (configService: ConfigService) => ({
-    uri: `mongodb://${configService.get<string>('mongoDb.username')}:${configService.get('mongoDb.password')}@${configService.get('mongoDb.host')}:${configService.get('mongoDb.port')}/${configService.get('mongoDb.dbname')}`,
+    uri: `mongodb://${configService.get<string>('mongoDb.uri')}/${configService.get('mongoDb.dbname')}`,
     authSource: 'admin',
   }),
 };

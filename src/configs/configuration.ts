@@ -6,6 +6,7 @@ export default () => ({
     username: process.env.MONGO_USERNAME,
     password: process.env.MONGO_PASSWORD,
     dbname: process.env.MONGO_DBNAME,
+    uri: process.env.MONGODB_URI,
   },
   redisDb: {
     host: process.env.REDIS_HOST,
