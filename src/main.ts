@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const port = process.env.PORT || 3000;
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api/v1/');
+  app.setGlobalPrefix('authentication/api/v1/');
   // Documentation
   const config = new DocumentBuilder()
     .setTitle('Documentation Authentication Service')
