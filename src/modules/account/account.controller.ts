@@ -103,6 +103,30 @@ export class AccountController {
     return this.accountService.verifyOtp(credential, otp, device);
   }
 
+  @ApiTags('Confirm OTP')
+  @ApiBody({
+    description: 'Confirm OTP',
+    schema: {
+      type: 'object',
+      properties: {
+        credential: {
+          type: 'string',
+          description: 'Email or phone number',
+        },
+        otp: {
+          type: 'string',
+          description: 'OTP',
+        },
+      },
+    },
+  })
+  @Public()
+  @Post('confirm-otp')
+  confirmOtp(@Body() body: { credential: string; otp: string }) {
+    const { credential, otp } = body ?? {};
+    return this.accountService.confirmOtp(credential, otp);
+  }
+
   @ApiTags('Refresh token')
   @ApiBody({
     schema: {

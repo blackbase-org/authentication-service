@@ -87,13 +87,13 @@ export class AccountService {
         dts['phoneNumber'] = credential;
         dts['authMethods'].push('phone');
       }
-      const { doc } = await this.userService.get(
-        `user/credential/${credential}`,
-        {},
-      );
+      // const { doc } = await this.userService.get(
+      //   `user/credential/${credential}`,
+      //   {},
+      // );
       // Logger.log(doc);
-      dts['ownerId'] = doc?._id || null;
-      dts['firebaseUid'] = doc?.firebaseUid || null;
+      // dts['ownerId'] = doc?._id || null;
+      // dts['firebaseUid'] = doc?.firebaseUid || null;
       account = await this.accountModel.create(dts);
     }
 
@@ -157,6 +157,14 @@ export class AccountService {
       account: rest,
       message: 'otp verified',
     };
+  }
+
+  async confirmOtp(credential: string, otp: string) {
+    const data = await this.redisService.get(credential);
+    // Logger.log(data);
+    if (!data) throw new ForbiddenException('otp expired');
+    if (data !== otp) throw new BadRequestException('invalid otp');
+    return { message: 'otp verified', verified: true };
   }
 
   async refreshToken(refresh_token: string) {
