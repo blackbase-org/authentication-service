@@ -8,10 +8,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-
-
-
-
 # Étape de production
 FROM node:20 AS production
 
